@@ -1,15 +1,11 @@
 import express from "express";
 
-// Utils
-import authenticateToken from "../../utils/authenticateToken.js";
-import checkUserAuthorization from "../../utils/checkUserAuthorization.js";
-
-// Controllers
-import { processMedia } from "../controllers/mediaProcessing.js";
-
-const router = express.Router();
+import { handleProcessingReq } from "../controllers/mediaProcessing.js";
 
 // api/user/
-router.post("/:id/process-media", authenticateToken, checkUserAuthorization, processMedia);
+const router = express.Router();
+
+// we dont need authentication and authorization since they are handled by the main server
+router.post("/:id/process-media", handleProcessingReq);
 
 export default router
