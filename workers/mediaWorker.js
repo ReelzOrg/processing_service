@@ -1,7 +1,7 @@
 import sharp from "sharp";
 import Ffmpeg from "fluent-ffmpeg";
 import { workerData, parentPort } from "worker_threads";
-import { getS3ObjectBody, putObjectToS3, uploadStream } from "../utils/s3utils";
+import { getS3ObjectBody, uploadStream } from "../utils/s3utils";
 
 const IMAGE_RESOLUTIONS = {
   full_portrait: { width: 1080, height: 1920 },

@@ -1,11 +1,14 @@
 import os from 'os';
 import path from 'path';
 import { Worker } from "worker_threads";
+import { PQueue } from "p-queue";
 
 // This file manages the worker threads. It takes the list of files from the controller
 // and distributes each file to an available worker
 const NUM_CORES = os.cpus().length;
 const workerScript = path.resolve("../workers/mediaWorker.js");
+
+const queue = new PQueue({ concurrency: NUM_CORES });
 
 export function processJobs(mediaList) {
   console.log(`Distributing ${mediaList.length} jobs across ${NUM_CORES} cores`);

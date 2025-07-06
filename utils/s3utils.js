@@ -2,7 +2,6 @@ import 'dotenv/config.js';
 import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 import { PassThrough } from "stream";
-import { ProgressBar, logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
