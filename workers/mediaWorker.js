@@ -3,14 +3,8 @@ import Ffmpeg from "fluent-ffmpeg";
 import { workerData, parentPort } from "worker_threads";
 import { getS3ObjectBody, uploadStream } from "../utils/s3utils";
 
-const IMAGE_RESOLUTIONS = {
-  full_portrait: { width: 1080, height: 1920 },
-  portrait: { width: 1080, height: 1350 }
-};
-const VIDEO_RESOLUTIONS = {
-  full_portrait: "1080x1920",
-  portrait: "1080x1350"
-};
+const POST_RESOLUTION = {width: 1080, height: 1350};
+const REEL_RESOLUTION = { width: 1080, height: 1920 };
 const PROCESSED_FILES_PREFIX = "processed/";
 
 /**
@@ -88,6 +82,7 @@ export async function processVideo(sourceStream, fileName, uploadType, userDetai
       Ffmpeg(sourceStream)
         .videoCodec("libx264")
         .audioCodec("aac")
+        .outputOptions("-crf 30") //higher value means more compression
         .videoFilter(
           `scale=${targetWidth}:${targetHeight}:force_original_aspect_ratio=decrease`,
           `pad=${targetWidth}:${targetHeight}:(ow-iw)/2:(oh-ih)/2:black`
