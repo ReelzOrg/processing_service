@@ -1,5 +1,6 @@
 import { processJobs } from "../../services/processDistributor";
 
+// handles processing request - test
 export function handleProcessingReq(req, res) {
   const { toProcessUrls, uploadType, post_id } = req.body;
 
